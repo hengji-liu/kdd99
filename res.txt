@@ -1,0 +1,14 @@
+sample report: http://www.cse.unsw.edu.au/~mike/comp9417/reportsample.txt
+
+
+
+kdd99
+
+description: http://kdd.ics.uci.edu/databases/kddcup99/task.html
+results: http://cseweb.ucsd.edu/~elkan/clresults.html
+some solutions: http://cseweb.ucsd.edu/~elkan/kdresults.html
+data: http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html
+
+
+total of 24 training attack types: http://kdd.ics.uci.edu/databases/kddcup99/training_attack_types
+there are 14 additional types in the test data only
