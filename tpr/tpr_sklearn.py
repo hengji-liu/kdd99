@@ -1,8 +1,14 @@
-import numpy as np
 import pandas as pd
-import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import precision_score
 
-pd.set_option('display.float_format', lambda x: '%.3f' % x)
+########## can't pass in string param ##########
+# TODO: one hot encoding? merge sparse categorical feature
+X = [["zero", "zero"], ["one", "one"]]
+Y = ["zero", "one"]
+clf = RandomForestClassifier(n_estimators=10, n_jobs=-1)
+clf = clf.fit(X, Y)
 
 file = r"..\data\train10pc"
 names = ["duration",  # length (number of seconds) of the conn's
@@ -61,23 +67,11 @@ names = ["duration",  # length (number of seconds) of the conn's
          # category
          "attack_type"
          ]
-# back, buffer_overflow, ftp_write, guess_passwd, imap, ipsweep, land, loadmodule, multihop, neptune, nmap,
-# normal, perl, phf, pod, portsweep, rootkit, satan, smurf, spy, teardrop, warezclient, warezmaster.
-
-
 df = pd.read_csv(file, header=None, names=names)
-# print(df.size)
-# print(df.shape)
-print("---")
-print(df.describe(include=[np.object_]))  # categorical features
-print("---")
-# print(df.describe(include=[np.number]))  # numeric features
-# https://docs.scipy.org/doc/numpy/reference/arrays.scalars.html
-
-# sns.set_style("whitegrid")
-# sns.countplot(y=df["attack_type"])
-# sns.distplot(np.log(df[df['duration'] > 0]['duration']))
-# sns.factorplot("protocol_type", col="attack_type", data=df, kind="count", col_wrap=8, size=2.5, aspect=.8)
-# sns.plt.show()
-
-# print(df[df.duration==0].count())
+X = df[names[:40]]
+y = df["attack_type"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=24)
+rfc = RandomForestClassifier()
+rfc.fit(X_train, y_train)
+y_pred = rfc.predict(X_test)
+print(precision_score(y_true=y_test, y_pred=y_pred))
