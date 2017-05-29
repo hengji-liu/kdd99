@@ -1,14 +1,10 @@
-from feature_engineering import one_hot
-from data.data import Data
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import precision_score
+import pickle
 
-df = Data("full").df
-# TODO: merge sparse features
-df = one_hot.transform(df)
-# print(df.describe())
-print("transformation finished")
+with open('..\data\processed_data.pickle', 'rb') as f:
+    df = pickle.load(f)
 
 # TODO: cross validation, grid search and stuff
 y = df["attack_type"]
@@ -21,4 +17,8 @@ rfc.fit(X_train, y_train)
 y_pred = rfc.predict(X_test)
 print("training finished")
 
-print(precision_score(y_true=y_test, y_pred=y_pred, average='macro'))
+# TODO: find more related feature and retrain
+print("feature importance: ", rfc.feature_importances_)
+
+# TODO: more specific means measure a multi-class classification
+print("precision: ", precision_score(y_true=y_test, y_pred=y_pred, average='macro'))
