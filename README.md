@@ -26,4 +26,4 @@ Preliminary Plan:
 5. Ensemble (simply voting. if time allows, stacking)
 
 
-run feature_engineering.do to 
+run **feature_engineering/do.py** to generate a pickle on disk, then train using the pickle
