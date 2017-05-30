@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 import pickle
 
-with open('..\data\processed_data.pickle', 'rb') as f:
+with open('../data/processed_data.pickle', 'rb') as f:
     df = pickle.load(f)
 print("data loaded")
 
