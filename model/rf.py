@@ -4,6 +4,8 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 import pickle
+# scoring function
+import scoring.scoring as sc
 
 with open('../data/processed_data.pickle', 'rb') as f:
     df = pickle.load(f)
@@ -19,8 +21,13 @@ print("splitting finished")
 rfc = RandomForestClassifier(n_jobs=-1, n_estimators=20)
 rfc.fit(X_train, y_train)
 y_pred = rfc.predict(X_test)
+
 print(precision_score(y_test, y_pred, average="micro"))
 print(recall_score(y_test, y_pred, average='micro'))
+
+# map to class function
+y_transform = sc.map_to_major_classes(y_pred)
+
 # parameters = {'n_estimators': list(range(10, 50, 10)),
 #               # 'criterion': ("gini", "entropy"),
 #               # 'max_features': ("sqrt", "log2"),
