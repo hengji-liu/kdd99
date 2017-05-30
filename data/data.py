@@ -3,8 +3,8 @@ import pandas as pd
 
 
 class Data:
-    __FILE10PC = r"..\data\train10pc"
-    __FILE = r"..\data\train"
+    __FILE10PC = r"../data/train10pc"
+    __FILE = r"../data/train"
     __ATTR_NAMES = ("duration",  # length (number of seconds) of the conn's
                     "protocol_type",  # symbolic, type of the protocol, e.g. tcp, udp, etc.
                     "service",  # symbolic, network service on the destination, e.g., http, telnet, etc.
