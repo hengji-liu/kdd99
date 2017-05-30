@@ -5,6 +5,8 @@ task description: http://kdd.ics.uci.edu/databases/kddcup99/task.html
 
 data: http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html
 
+competition results: http://cseweb.ucsd.edu/~elkan/clresults.html
+
 Preliminary Plan:
 1. EDA (Exploratory Data Analysis)
 2. Feature Engineering

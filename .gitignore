@@ -1,6 +1,6 @@
 .idea
 data/t*
-*.pickle
+*.pkl
 */__pycache__
 
 # Windows image file caches
