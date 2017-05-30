@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 import pickle
 
-with open('..\data\processed_data.pickle', 'rb') as f:
+with open('../data/processed_data.pickle', 'rb') as f:
     df = pickle.load(f)
 print("data loaded")
 
@@ -23,5 +23,5 @@ for f in range(X.shape[1]):
 
 print(len(selected_feat_names), "features are selected")
 
-with open(r'..\data\feat_names.pickle', 'wb') as f:
+with open(r'../data/feat_names.pickle', 'wb') as f:
     pickle.dump(selected_feat_names, f)
