@@ -27,7 +27,7 @@ parameters = {
     # 'max_features': ("sqrt", "log2"),
 }
 
-scorer = cbs.scorer(True)
+scorer = cbs.scorer(show=True)
 
 if __name__ == '__main__':
     gscv = GridSearchCV(rfc, parameters, scoring=scorer, verbose=2, refit=True, cv=3, n_jobs=1)
