@@ -9,7 +9,7 @@ df = merge_sparse_feature.transfrom(df)
 # one hot encoding
 df = one_hot.transform(df)
 
-with open(r'..\data\processed_data.pickle', 'wb') as f:
+with open(r'../data/processed_data.pickle', 'wb') as f:
     pickle.dump(df, f)
 
 print("pre-processing finished")
