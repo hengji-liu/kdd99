@@ -10,19 +10,17 @@ Preliminary Plan:
 2. Feature Engineering
 - Sparse feature merging and one hot encoding
 - Feature selection (maybe use RF feature importance?)
-3. Model Training
-- Random Forrest Classifier (hengji)
-- Extra Trees Classifier (igit)
-- Gradient Boosting Classifier (igit)
-- XGBoost Linear Booster (hengji)
-- XGBoost Tree Booster (hengji)
-- Support Vector Classifier (igit)
-- Ridge Classifier (hengji)
-- Keras DNN (hengji, if time allows) (https://github.com/fchollet/keras)
-- Random Greedy Forest Classifier (hengji, if time allows) (https://github.com/fukatani/rgf_python)
-4. Scoring
+3. Scoring
 - Map specific classes into the five major classes (igit)
 - Scoring using the weight matrix (hengji)
+4. Model Training
+- Random Forrest Classifier (hengji)
+- XGBoost Tree Booster (hengji)
+- Ada Boost Classifier (hengji)
+- Extra Trees Classifier (igit)
+- Gradient Boosting Classifier (igit)
+- Keras DNN (hengji, if time allows) (https://github.com/fchollet/keras)
+- Random Greedy Forest Classifier (hengji, if time allows) (https://github.com/fukatani/rgf_python)
 5. Ensemble (simply voting. if time allows, stacking)
 
 

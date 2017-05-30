@@ -2,11 +2,13 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from data.data import Data
+import pickle
 
-df = Data('full').df
-# sns.set_style("whitegrid")
-# sns.countplot(y=df["attack_type"])
-# sns.distplot(np.log(df[df['duration'] > 0]['duration']))
-sns.distplot(df['duration'])
-# sns.factorplot("attack_type", col="service", data=df, kind="count", col_wrap=8, size=3, aspect=.8)
-sns.plt.show()
+with open('..\data\processed_data.pickle', 'rb') as f:
+    df = pickle.load(f)
+name = "srv_serror_rate"
+sns_plt = sns.distplot(np.log(df[df[name] > 0][name] + 1), kde=False)
+# sns_plt = sns.kdeplot(np.log(df[df[name] > 0][name]+1))
+# sns_plt = sns.distplot(df[name])
+fig = sns_plt.get_figure()
+fig.savefig(name + ".png")

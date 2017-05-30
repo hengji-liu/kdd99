@@ -1,37 +1,33 @@
-import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import precision_score
 import pickle
 
 with open('..\data\processed_data.pickle', 'rb') as f:
     df = pickle.load(f)
+with open(r'..\data\feat_names.pickle', 'rb') as f:
+    selected_feat_names = pickle.load(f)
+print("data loaded")
 
-# TODO: cross validation, grid search and stuff
 y = df["attack_type"]
-X = df.drop("attack_type", axis=1)
+X = df[selected_feat_names]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=24)
 print("splitting finished")
 
-rfc = RandomForestClassifier(n_jobs=-1, criterion='entropy')
+rfc = RandomForestClassifier(n_jobs=-1, n_estimators=20)
 rfc.fit(X_train, y_train)
 y_pred = rfc.predict(X_test)
-print("training finished")
+print(precision_score(y_test, y_pred, average="macro"))
 
-# TODO: features could vary due to the inherent randomness, train many times get a intersection?union?appearance>50%?
-importances = rfc.feature_importances_
-indices = np.argsort(importances)
-selected_feat_names = []
-for f in range(X_train.shape[1]):
-    if importances[indices[f]] != 0:
-    # if importances[indices[f]] - 0.000001 > 0:
-    # if f < 14:
-        selected_feat_names.append(X.columns[f])
-    print("%2d) %-*s %f" % (f + 1, 30, X.columns[f], importances[indices[f]]))
-
-with open(r'..\data\feat_names.pickle', 'wb') as f:
-    pickle.dump(selected_feat_names, f)
-
-# TODO: more specific means measure a multi-class classification
-print("precision: ", precision_score(y_true=y_test, y_pred=y_pred, average='macro'))
-
+# parameters = {'n_estimators': list(range(10, 50, 10)),
+#               # 'criterion': ("gini", "entropy"),
+#               # 'max_features': ("sqrt", "log2"),
+#               }
+#
+# if __name__ == '__main__':
+#     gscv = GridSearchCV(rfc, parameters, verbose=2, refit=True, cv=3, n_jobs=1)
+#     gscv.fit(X_train, y_train)
+#
+#     print(gscv.best_params_, gscv.best_score_)
+#     print(gscv.score(X_test, y_test))
