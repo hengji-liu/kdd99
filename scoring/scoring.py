@@ -1,5 +1,3 @@
-import numpy as np
-
 CLASS_1 = ['ipsweep.', 'mscan.', 'nmap.', 'portsweep.', 'saint.', 'satan.']
 CLASS_2 = ['apache2.', 'back.', 'mailbomb.', 'neptune.', 'pod.', 'land.'
            'processtable.', 'smurf.', 'teardrop.', 'udpstorm.', 'mailbomb.']
@@ -8,8 +6,6 @@ CLASS_3 = ['buffer_overflow.', 'loadmodule.',
 CLASS_4 = ['ftp_write.', 'guess_passwd.', 'httptunnel.', 'imap.', 'multihop.',
            'named.', 'phf.', 'sendmail.', 'snmpgetattack.', 'snmpguess.',
            'worm.', 'xlock.', 'xsnoop.', 'spy.', 'warezclient.', 'warezmaster.']
-
-y = np.ndarray
 
 
 def map_to_major_classes(y):

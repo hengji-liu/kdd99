@@ -3,7 +3,7 @@ from feature_engineering import merge_sparse_feature
 from feature_engineering import one_hot
 import pickle
 
-df = Data("full").df
+df = Data("10pc").df
 # sparse feature merge
 df = merge_sparse_feature.transfrom(df)
 # one hot encoding
