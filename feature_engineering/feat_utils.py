@@ -57,6 +57,10 @@ def one_hot(df):
     service_one_hot = pd.get_dummies(df["service"])
     df = df.drop('service', axis=1)
     df = df.join(service_one_hot)
+    # test data has this column in service, clashes with protocol_type
+    # and not seen in training data, won't be learn by the model, safely delete
+    if 'icmp' in df.columns:
+        df = df.drop('icmp', axis=1)
 
     protocol_type_one_hot = pd.get_dummies(df["protocol_type"])
     df = df.drop('protocol_type', axis=1)

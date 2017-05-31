@@ -1,5 +1,6 @@
+import numpy as np
 import pandas as pd
-import feature_engineering.functions as fe
+from feature_engineering import feat_utils
 import pickle
 
 __ATTR_NAMES = ("duration",  # length (number of seconds) of the conn's
@@ -60,7 +61,9 @@ __ATTR_NAMES = ("duration",  # length (number of seconds) of the conn's
                 )
 
 df = pd.read_csv(r'../data/test', header=None, names=__ATTR_NAMES)
-df = fe.map2major5(df)
+df = feat_utils.merge_sparse_feature(df)
+df = feat_utils.one_hot(df)
+df = feat_utils.map2major5(df)
 
 # percentage check, to make sure the mapping is correct
 # print(df[df['attack_type'] == 0].shape[0] / df.shape[0])

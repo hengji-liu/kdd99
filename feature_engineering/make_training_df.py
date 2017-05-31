@@ -1,14 +1,14 @@
 from data.data import Data
-import feature_engineering.functions as fe
+from feature_engineering import feat_utils
 import pickle
 
 df = Data("10pc").df
 # sparse feature merge
-df = fe.merge_sparse_feature(df)
+df = feat_utils.merge_sparse_feature(df)
 # one hot encoding
-df = fe.one_hot(df)
+df = feat_utils.one_hot(df)
 # y labels mapping
-df = fe.map2major5(df)
+df = feat_utils.map2major5(df)
 
 # the percentage show in the link below is for the 10pc data
 # http://cseweb.ucsd.edu/~elkan/clresults.html

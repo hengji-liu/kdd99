@@ -1,4 +1,4 @@
-# kdd99
+kdd99
 vicious ntwk conn recog, kdd cup yr 99,  ml course final proj
 
 task description: http://kdd.ics.uci.edu/databases/kddcup99/task.html
@@ -11,10 +11,10 @@ Preliminary Plan:
 1. EDA (Exploratory Data Analysis)
 2. Feature Engineering
 - Sparse feature merging and one hot encoding
-- Feature selection (maybe use RF feature importance?)
+- Map specific classes into the five major classes
+- Feature selection (use RF feature importance)
 3. Scoring
-- Map specific classes into the five major classes (igit)
-- Scoring using the weight matrix (hengji)
+- Scoring using the weight matrix
 4. Model Training
 - Random Forrest Classifier (hengji)
 - XGBoost Tree Booster (hengji)

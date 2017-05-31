@@ -28,10 +28,10 @@ def score(y_true, y_pred, show):
             else:
                 count[i][5] = count[i][i] / sum(count[i])
         for i in range(5):
-            if 0 == sum(count[i]):
+            if 0 == sum(count[j][i] for j in range(5)):
                 count[5][i] = 0
             else:
-                count[5][i] = count[i][i] / sum(count[:][0])
+                count[5][i] = count[i][i] / sum(count[j][i] for j in range(5))
         print("-----------------------------------------------")
         for i in range(5):
             print("%7d %7d %7d %7d %7d %1.5f" % (
