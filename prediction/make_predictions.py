@@ -18,4 +18,13 @@ with open('../data/yrf.pkl', 'wb') as f:
 print("rf results:")
 cbs.score(y, y_rf, True)
 
+# ada boost
+with open('../data/ada.pkl', 'rb') as f:
+    ada = pickle.load(f)
+y_ada = ada.predict(X)
+with open('../data/yada.pkl', 'wb') as f:
+    pickle.dump(y_ada, f)
+print("ada results:")
+cbs.score(y, y_ada, True)
+
 # TODO: other model
