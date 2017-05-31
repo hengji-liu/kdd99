@@ -1,5 +1,5 @@
 from sklearn.model_selection import GridSearchCV
-from sklearn.ensemble import ExtraTreesClassifier
+from sklearn.linear_model import LogisticRegression
 from scoring import cost_based_scoring as cbs
 import pickle
 
@@ -12,24 +12,23 @@ print("data loaded")
 y = df["attack_type"]
 X = df[selected_feat_names]
 
-etc = ExtraTreesClassifier(n_jobs=-1)
+lrc = LogisticRegression(n_jobs=1)
 
 # TODO choose parameters for training
-parameters_etc = {
-    # to make sure each iteration of cv yield to same random number, so the
-    # result of cv can be compared
-    'random_state': (100,),
-    'criterion': ("gini", "entropy"),
-    'n_estimators': (10, 20),
-    'max_features': ("sqrt", "log2"),
-    'min_samples_split': (2, 3),
+parameters_lrc = {
+    'multi_class': ('ovr', 'multinomial'),
+    'solver': ('newton-cg', 'lbfgs'),
+    'max_iter': (200,),
+    'random_state': (10,),
+    'tol': (1e-4, 1e-5),
+    'C': (1.0, 0.5)
 }
 
 scorer = cbs.scorer(True)
 
 if __name__ == '__main__':
-    gscv = GridSearchCV(estimator=etc,
-                        param_grid=parameters_etc,
+    gscv = GridSearchCV(estimator=lrc,
+                        param_grid=parameters_lrc,
                         scoring=scorer,
                         verbose=10,
                         refit=True,
