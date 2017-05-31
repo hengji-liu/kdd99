@@ -21,7 +21,7 @@ parameters_lrc = {
     'max_iter': (200,),
     'random_state': (10,),
     'tol': (1e-4, 1e-5),
-    'C': (1.0, 0.5)
+    'C': (1.0, 100)
 }
 
 scorer = cbs.scorer(True)

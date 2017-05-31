@@ -18,7 +18,7 @@ y = df["attack_type"]
 X = df[selected_feat_names]
 
 # plug optimum params for each classifier, or play around with parameters
-# dict to fine to the voting classifier
+# dict to fine tune to the voting classifier
 ada = AdaBoostClassifier()
 lrc = LogisticRegression(n_jobs=1)
 etc = ExtraTreesClassifier(n_jobs=-1)
@@ -28,26 +28,26 @@ eclf = VotingClassifier(estimators=[('ada', ada), ('lrc', lrc), ('etc', etc)]
 
 
 parameters = {  # 'classfier_name[double_underscores]key'
-              'lrc__C': [1.0, 100.0],
-              'etc__n_estimators': [20, 200],
-              'voting': 'hard',
+              # 'lrc__C': [1.0, 100.0],
+              # 'etc__n_estimators': [20, 200],
+              # 'voting': 'hard',
               # If we already have the optimal config or decide not to
               # fine tune each classifier individually, then
               # probably try to use 'soft' voting method. However, to use soft
               # voting, the weights for each classifier need to setup
               # correctly. Then find the right weight combination will be the
               # next target.
-              # 'voting': 'soft',
-              # 'weights': [[1, 2, 1],
-              #             [2, 1, 1],
-              #             [1, 1, 2],
-              #             [1, 2, 3],
-              #             [3, 2, 1],
-              #             [2, 1, 3],
-              #             [1, 1, 1],
-              #             [2, 3, 1],
-              #             [1, 3, 2],
-              #             [3, 1, 2],]
+              'voting': ('soft',),
+              'weights': [[1, 2, 1],
+                          [2, 1, 1],
+                          [1, 1, 2],
+                          [1, 2, 3],
+                          [3, 2, 1],
+                          [2, 1, 3],
+                          [1, 1, 1],
+                          [2, 3, 1],
+                          [1, 3, 2],
+                          [3, 1, 2],]
               }
 
 
@@ -61,7 +61,7 @@ if __name__ == '__main__':
                         scoring=scorer,
                         cv=3,
                         verbose=10,
-                        refit=False,
+                        refit=True,
                         n_jobs=1)
     gscv.fit(X, y)
     print(gscv.best_params_, gscv.best_score_)

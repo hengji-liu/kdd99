@@ -1,7 +1,8 @@
 import pickle
 from sklearn.ensemble import AdaBoostClassifier, \
-    ExtraTreesClassifier, VotingClassifier
+    ExtraTreesClassifier, RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
+from mlxtend.classifier import StackingClassifier
 
 with open('../data/training_df.pkl', 'rb') as f:
     df = pickle.load(f)
@@ -13,18 +14,20 @@ print("data loaded")
 y = df["attack_type"]
 X = df[selected_feat_names]
 
-# TODO: put the best paras learn from grid search
+# TODO: put the best param learn from grid search
 ada = AdaBoostClassifier()  # add best params config
-lrc = LogisticRegression(n_jobs=1)  # add best params config
 etc = ExtraTreesClassifier(n_jobs=-1)  # add best params config
+rfc = RandomForestClassifier(n_jobs=-11)
 
-eclf = VotingClassifier(estimators=[('ada', ada), ('lrc', lrc), ('etc', etc)],
-                        voting='hard', n_jobs=-1)
+lr = LogisticRegression()  # meta classifier
 
-eclf.fit(X, y)
+sclf = StackingClassifier(classifiers=[ada, rfc, etc],
+                          meta_classifier=lr)
+
+sclf.fit(X, y)
 print("training finished")
 
 # save model for later ensemble
-with open(r'../data/voting.pkl', 'wb') as f:
-    pickle.dump(eclf, f)
+with open(r'../data/stacking.pkl', 'wb') as f:
+    pickle.dump(sclf, f)
 print("model dumped")
