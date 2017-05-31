@@ -7,7 +7,9 @@ with open('../data/training_df.pkl', 'rb') as f:
 print("data loaded")
 
 y = df["attack_type"]
+# drop attack_type column for x
 X = df.drop("attack_type", axis=1)
+
 rfc = RandomForestClassifier(n_jobs=-1)
 rfc.fit(X, y)
 print("training finished")
