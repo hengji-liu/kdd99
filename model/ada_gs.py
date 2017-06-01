@@ -16,9 +16,8 @@ ada = AdaBoostClassifier()
 
 # TODO choose parameters for training
 parameters = {
-    # 'n_estimators': list(range(10, 100, 10)),
-    # 'criterion': ("gini", "entropy"),
-    # 'max_features': ("sqrt", "log2"),
+    'learning_rate': (0.5, 1, 2),
+    'n_estimators': (50, 75, 100, 125, 150),
 }
 
 scorer = cbs.scorer(show=True)
@@ -26,7 +25,9 @@ scorer = cbs.scorer(show=True)
 if __name__ == '__main__':
     # n_jobs = 1 due to limitied memory
     # refit = False for the sake of clarity
-    gscv = GridSearchCV(ada, parameters, scoring=scorer, cv=3, verbose=2, refit=False, n_jobs=1)
+    gscv = GridSearchCV(ada, parameters, scoring=scorer, cv=3, verbose=2, refit=False, n_jobs=1,
+                        return_train_score=False)
     gscv.fit(X, y)
     print(gscv.best_params_, gscv.best_score_)
     print("grid search finished")
+    # 1, 75
