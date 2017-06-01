@@ -14,15 +14,11 @@ X = df[selected_feat_names]
 
 etc = ExtraTreesClassifier(n_jobs=-1)
 
-# TODO choose parameters for training
 parameters_etc = {
-    # to make sure each iteration of cv yield to same random number, so the
-    # result of cv can be compared
-    'random_state': (100,),
     'criterion': ("gini", "entropy"),
-    'n_estimators': (10, 20),
+    'n_estimators': (3, 4, 5, 6, 7),
     'max_features': ("sqrt", "log2"),
-    'min_samples_split': (2, 3),
+    'min_samples_split': (2, 3, 4),
 }
 
 scorer = cbs.scorer(True)
@@ -34,7 +30,9 @@ if __name__ == '__main__':
                         verbose=10,
                         refit=True,
                         cv=3,
-                        n_jobs=-1)
+                        n_jobs=1,
+                        return_train_score=False)
     gscv.fit(X, y)
     print(gscv.best_params_)
     print(gscv.best_score_)
+    # entropy, 4, log2, 2
