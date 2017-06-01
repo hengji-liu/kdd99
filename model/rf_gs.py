@@ -14,11 +14,10 @@ X = df[selected_feat_names]
 
 rfc = RandomForestClassifier(n_jobs=-1)
 
-# TODO choose parameters for training
 parameters = {
-    # 'n_estimators': list(range(10, 100, 10)),
+    'n_estimators': tuple(range(10, 50, 10)),  # overfit if too large, underfit if too small
     'criterion': ("gini", "entropy"),
-    # 'max_features': ("sqrt", "log2"),
+    'max_features': ("sqrt", "log2"),
 }
 
 scorer = cbs.scorer(show=True)
@@ -30,3 +29,4 @@ if __name__ == '__main__':
     gscv.fit(X, y)
     print(gscv.best_params_, gscv.best_score_)
     print("grid search finished")
+    # 20, entropy, sqrt
