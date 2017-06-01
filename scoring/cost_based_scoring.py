@@ -8,20 +8,20 @@ def score(y_true, y_pred, show):
                    [3, 2, 2, 0, 2],
                    [4, 2, 2, 2, 0]
                    ]
-    count = [[0, 0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0, 'x']
-             ]
     cost = 0
     size = y_true.size
-    for i in range(size):
-        cost += cost_matrix[y_true.iat[i]][y_pred[i]]
-        count[y_true.iat[i]][y_pred[i]] += 1
     # print count & percentage matrix
     if show:
+        count = [[0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 'x']
+                 ]
+        for i in range(size):
+            cost += cost_matrix[y_true.iat[i]][y_pred[i]]
+            count[y_true.iat[i]][y_pred[i]] += 1
         for i in range(5):
             if 0 == sum(count[i]):
                 count[i][5] = 0
@@ -40,6 +40,9 @@ def score(y_true, y_pred, show):
             count[5][0], count[5][1], count[5][2], count[5][3], count[5][4]))
         print("score: ", cost / size)
         print("-----------------------------------------------")
+    else:
+        for i in range(size):
+            cost += cost_matrix[y_true.iat[i]][y_pred[i]]
     return cost / size
 
 
