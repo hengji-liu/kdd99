@@ -16,9 +16,9 @@ etc = ExtraTreesClassifier(n_jobs=-1)
 
 parameters_etc = {
     # 'criterion': ("gini", "entropy"),
-    'n_estimators': (3, 4, 5, 6, 7),
+    'n_estimators': (5, 10, 20, 30, 40, 50),
     # 'max_features': ("sqrt", "log2"),
-    'min_samples_split': (2, 3, 4),
+    # 'min_samples_split': (2, 3, 4),
 }
 
 scorer = cbs.scorer(True)
@@ -36,4 +36,4 @@ if __name__ == '__main__':
     print(gscv.cv_results_)
     print(gscv.best_params_)
     print(gscv.best_score_)
-    # no significant
+    # 5 estimator, others no significance

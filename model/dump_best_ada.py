@@ -11,7 +11,7 @@ print("data loaded")
 y = df["attack_type"]
 X = df[selected_feat_names]
 
-ada = AdaBoostClassifier(n_estimators=75, learning_rate=1)
+ada = AdaBoostClassifier(n_estimators=75, learning_rate=1.5)
 ada.fit(X, y)
 print("training finished")
 
