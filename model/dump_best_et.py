@@ -11,7 +11,7 @@ print("data loaded")
 y = df["attack_type"]
 X = df[selected_feat_names]
 
-etc = ExtraTreesClassifier(n_jobs=-1, n_estimators=4, criterion="entropy", max_features="log2", min_samples_split=2)
+etc = ExtraTreesClassifier(n_jobs=-1, criterion="entropy") # other features grid searched are not significant
 etc.fit(X, y)
 print("training finished")
 

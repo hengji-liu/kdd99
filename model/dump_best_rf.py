@@ -11,11 +11,11 @@ print("data loaded")
 y = df["attack_type"]
 X = df[selected_feat_names]
 
-rfc = RandomForestClassifier(n_jobs=-1, n_estimators=20, criterion="entropy", max_features="sqrt")
+rfc = RandomForestClassifier(n_jobs=-1, n_estimators=30, criterion="entropy")
 rfc.fit(X, y)
 print("training finished")
 
-# save model for later ensemble
+# save model for later use
 with open(r'../data/rf.pkl', 'wb') as f:
     pickle.dump(rfc, f)
 print("model dumped")
