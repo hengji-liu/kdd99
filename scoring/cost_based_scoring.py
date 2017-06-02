@@ -20,8 +20,8 @@ def score(y_true, y_pred, show):
                  [0, 0, 0, 0, 0, 'x']
                  ]
         for i in range(size):
-            cost += cost_matrix[y_true.iat[i]][y_pred[i]]
-            count[y_true.iat[i]][y_pred[i]] += 1
+            cost += cost_matrix[y_true[i]][y_pred[i]]  # y_ture should be dataframe.values
+            count[y_true[i]][y_pred[i]] += 1
         for i in range(5):
             if 0 == sum(count[i]):
                 count[i][5] = 0
@@ -42,7 +42,7 @@ def score(y_true, y_pred, show):
         print("-----------------------------------------------")
     else:
         for i in range(size):
-            cost += cost_matrix[y_true.iat[i]][y_pred[i]]
+            cost += cost_matrix[y_true[i]][y_pred[i]]
     return cost / size
 
 

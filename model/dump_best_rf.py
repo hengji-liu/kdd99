@@ -10,8 +10,8 @@ print("data loaded")
 # train on full data set
 y = df["attack_type"]
 X = df[selected_feat_names]
-# TODO: put the best paras learn from grid search
-rfc = RandomForestClassifier(n_jobs=-1, criterion="entropy", n_estimators=20)
+
+rfc = RandomForestClassifier(n_jobs=-1, n_estimators=20, criterion="entropy", max_features="sqrt")
 rfc.fit(X, y)
 print("training finished")
 

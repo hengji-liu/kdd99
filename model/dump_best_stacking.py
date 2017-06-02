@@ -14,20 +14,18 @@ print("data loaded")
 y = df["attack_type"]
 X = df[selected_feat_names]
 
-# TODO: put the best param learn from grid search
-ada = AdaBoostClassifier()  # add best params config
-etc = ExtraTreesClassifier(n_jobs=-1)  # add best params config
-rfc = RandomForestClassifier(n_jobs=-11)
+rfc = RandomForestClassifier(n_jobs=-1, n_estimators=20, criterion="entropy", max_features="sqrt")
+# ada = AdaBoostClassifier(n_estimators=75, learning_rate=1)
+etc = ExtraTreesClassifier(n_jobs=-1, n_estimators=4, criterion="entropy", max_features="log2", min_samples_split=2)
+lr = LogisticRegression(n_jobs=-1, C=1000)  # meta classifier
 
-lr = LogisticRegression()  # meta classifier
-
-sclf = StackingClassifier(classifiers=[ada, rfc, etc],
+sclf = StackingClassifier(classifiers=[rfc, etc],
                           meta_classifier=lr)
 
 sclf.fit(X, y)
 print("training finished")
 
-# save model for later ensemble
+# save model for later predicting
 with open(r'../data/stacking.pkl', 'wb') as f:
     pickle.dump(sclf, f)
 print("model dumped")

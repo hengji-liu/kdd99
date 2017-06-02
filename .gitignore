@@ -1,6 +1,7 @@
 .idea
-data/t*
-*.pkl
+data/train*
+data/test*
+
 */__pycache__
 
 # Windows image file caches

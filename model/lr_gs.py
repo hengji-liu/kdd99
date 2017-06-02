@@ -14,14 +14,15 @@ X = df[selected_feat_names]
 
 lrc = LogisticRegression(n_jobs=1)
 
-# TODO choose parameters for training
 parameters_lrc = {
     'multi_class': ('ovr', 'multinomial'),
     'solver': ('newton-cg', 'lbfgs'),
-    'max_iter': (200,),
-    'random_state': (10,),
+    # not liblinear because dataset large and is multiclass
+    # not sag because feature not same scale
+    'max_iter': (100, 200,),
+    # 'random_state': (10,),
     'tol': (1e-4, 1e-5),
-    'C': (1.0, 100)
+    'C': (1.0, 5.0, 10.0, 50.0, 100)
 }
 
 scorer = cbs.scorer(True)
@@ -31,9 +32,10 @@ if __name__ == '__main__':
                         param_grid=parameters_lrc,
                         scoring=scorer,
                         verbose=10,
-                        refit=True,
+                        refit=False,
                         cv=3,
-                        n_jobs=-1)
+                        n_jobs=1,
+                        return_train_score=False)
     gscv.fit(X, y)
     print(gscv.best_params_)
     print(gscv.best_score_)

@@ -10,8 +10,8 @@ print("data loaded")
 # train on full data set
 y = df["attack_type"]
 X = df[selected_feat_names]
-# TODO: put the best paras learn from grid search
-ada = AdaBoostClassifier()
+
+ada = AdaBoostClassifier(n_estimators=75, learning_rate=1)
 ada.fit(X, y)
 print("training finished")
 
