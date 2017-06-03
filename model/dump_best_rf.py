@@ -11,7 +11,7 @@ print("data loaded")
 y = df["attack_type"]
 X = df[selected_feat_names]
 
-rfc = RandomForestClassifier(n_jobs=-1, n_estimators=30, criterion="entropy")
+rfc = RandomForestClassifier(n_jobs=-1, n_estimators=35, criterion="entropy")
 rfc.fit(X, y)
 print("training finished")
 

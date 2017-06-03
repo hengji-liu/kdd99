@@ -36,4 +36,4 @@ if __name__ == '__main__':
     print(gscv.cv_results_)
     print(gscv.best_params_)
     print(gscv.best_score_)
-    # 5 estimator, others no significance
+    # 5 estimator, entropy, others no significance
