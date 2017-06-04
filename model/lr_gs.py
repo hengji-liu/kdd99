@@ -9,8 +9,8 @@ with open(r'../data/selected_feat_names.pkl', 'rb') as f:
     selected_feat_names = pickle.load(f)
 print("data loaded")
 
-y = df["attack_type"]
-X = df[selected_feat_names]
+y = df["attack_type"].values
+X = df[selected_feat_names].values
 
 lrc = LogisticRegression(n_jobs=1)
 
@@ -19,9 +19,9 @@ parameters_lrc = {
     'solver': ('newton-cg', 'lbfgs'),
     # not liblinear because dataset large and is multiclass
     # not sag because feature not same scale
-    'max_iter': (100, 200,),
+    # 'max_iter': (100, 200,),
     # 'random_state': (10,),
-    'tol': (1e-4, 1e-5),
+    # 'tol': (1e-4, 1e-5),
     'C': (1.0, 5.0, 10.0, 50.0, 100)
 }
 

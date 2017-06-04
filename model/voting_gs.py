@@ -16,11 +16,11 @@ X = df[selected_feat_names].values
 
 # plug optimum params for each classifier, or play around with parameters
 # dict to fine tune to the voting classifier
-rfc = RandomForestClassifier(n_jobs=-1, n_estimators=20, criterion="entropy", max_features="sqrt")
-# ada = AdaBoostClassifier(n_estimators=75, learning_rate=1)
-etc = ExtraTreesClassifier(n_jobs=-1, n_estimators=4, criterion="entropy", max_features="log2", min_samples_split=2)
+rfc = RandomForestClassifier(n_jobs=-1, n_estimators=35, criterion="entropy")
+etc = ExtraTreesClassifier(n_jobs=-1, n_estimators=5, criterion="entropy")
+ada = AdaBoostClassifier(n_estimators=75, learning_rate=1.5)
 
-eclf = VotingClassifier(estimators=[('rfc', rfc), ('etc', etc)], n_jobs=1)
+vclf = VotingClassifier(estimators=[('rfc', rfc), ('etc', etc), ('ada', ada)], n_jobs=1)
 
 parameters = {  # 'classfier_name[double_underscores]key'
     # 'lrc__C': [1.0, 100.0],
@@ -33,22 +33,19 @@ parameters = {  # 'classfier_name[double_underscores]key'
     # correctly. Then find the right weight combination will be the
     # next target.
     'voting': ('soft',),
-    'weights': [[1, 2],
-                [2, 1],
-                [1, 1],
-                [3, 2],
-                [2, 3]
-                ]
-    # 'weights': [[1, 2, 1],
-    #             [2, 1, 1],
-    #             [1, 1, 2],
-    #             [1, 2, 3],
-    #             [3, 2, 1],
-    #             [2, 1, 3],
-    #             [1, 1, 1],
-    #             [2, 3, 1],
-    #             [1, 3, 2],
-    #             [3, 1, 2], ]
+    'weights': [[1, 1, 1],
+                [1, 1, 2],
+                [1, 2, 1],
+                [2, 1, 1],
+                [1, 2, 2],
+                [2, 1, 2],
+                [2, 2, 1],
+                [1, 2, 3],
+                [1, 3, 2],
+                [2, 1, 3],
+                [2, 3, 1],
+                [3, 1, 2],
+                [3, 2, 1]]
 }
 
 scorer = cbs.scorer(show=True)
@@ -56,18 +53,15 @@ scorer = cbs.scorer(show=True)
 if __name__ == '__main__':
     # n_jobs = 1 due to limitied memory
     # refit = False for the sake of clarity
-    gscv = GridSearchCV(eclf, parameters,
+    gscv = GridSearchCV(vclf, parameters,
                         scoring=scorer,
                         cv=3,
                         verbose=10,
-                        refit=True,
+                        refit=False,
                         n_jobs=1,
                         return_train_score=False)
     gscv.fit(X, y)
     print(gscv.best_params_, gscv.best_score_)
+    print(gscv.cv_results_)
     print("grid search finished")
-
-    # save model for later predicting
-    with open(r'../data/stacking.pkl', 'wb') as f:
-        pickle.dump(gscv, f)
-    print("model dumped")
+    # 1,3,2

@@ -30,7 +30,7 @@ y_et = et.predict(X)
 print("et results:")
 cbs.score(y, y_et, True)
 
-# vt
+# voting
 with open('../data/voting.pkl', 'rb') as f:
     voting = pickle.load(f)
 y_voting = voting.predict(X)
